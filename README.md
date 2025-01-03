@@ -1,143 +1,118 @@
-### **README.md**
+# Credit Card Fraud Detection Project
+
+## Overview
+This project aims to detect fraudulent credit card transactions using three machine learning models:
+1. **Logistic Regression**
+2. **Random Forest Classifier**
+3. **Decision Tree Classifier**
+
+Each model is trained and evaluated for its performance, with a comparison of their accuracy, precision, recall, and classification reports.
 
 ---
 
-# **Face Recognition Attendance System**
+## Features
+### 1. **Data Preparation**:
+   - **Dataset**: `creditcard.csv`
+   - **Features**: 28 anonymized variables (`V1` to `V28`), along with `Time` and `Amount`.
+   - **Target**: `Class` (0 = Non-Fraud, 1 = Fraud).
+   - **Preprocessing**: Standardized the `Amount` feature and scaled the data.
 
-This project is a **Face Recognition-based Attendance System** that uses a webcam to recognize faces and mark attendance automatically. It also supports real-time tracking and generates attendance records in CSV format.
+### 2. **Exploratory Data Analysis**:
+   - Checked for missing values and data imbalances.
+   - Visualizations included:
+     - Fraud vs. Non-Fraud transaction distribution.
+     - Correlation heatmap for feature relationships.
+
+### 3. **Machine Learning Models**:
+   - **Logistic Regression**: Baseline model for comparison.
+   - **Random Forest Classifier**: Ensures high accuracy and robust performance.
+   - **Decision Tree Classifier**: Interpretable but prone to overfitting.
+
+### 4. **Evaluation Metrics**:
+   - Confusion Matrix
+   - Classification Report (Precision, Recall, F1-Score)
+   - Accuracy Score
 
 ---
 
-## **Features**
-- **Real-time Face Recognition**: Detects and recognizes faces using a webcam.
-- **Automated Attendance**: Marks attendance for recognized individuals and logs their details (name and time) in a CSV file.
-- **Customizable Face Database**: Add or update student photos for face encoding.
-- **GUI Integration (Optional)**: Plan to integrate features like adding photos, viewing attendance records, and camera control using Tkinter.
-- **Exportable Records**: Saves daily attendance records in a CSV file.
+## Requirements
 
----
+### Libraries Used
+The project utilizes the following Python libraries:
+- `pandas` (Data manipulation)
+- `scikit-learn` (Machine learning tools)
+- `seaborn` (Data visualization)
+- `matplotlib` (Plotting)
 
-## **Requirements**
-
-### **Python Libraries**
-Make sure the following Python libraries are installed:
-- `face_recognition`: For face detection and recognition.
-- `opencv-python`: For webcam access and real-time video processing.
-- `numpy`: For handling mathematical operations.
-- `csv`: For saving attendance records.
-- `datetime`: For timestamping attendance.
-
-Install the required libraries with:
+### Installation
+Install the required libraries using:
 ```bash
-pip install face_recognition opencv-python numpy
+pip install pandas scikit-learn seaborn matplotlib
 ```
 
-### **System Requirements**
-- A working webcam (external or built-in).
-- Python 3.7 or above.
-- `dlib` library for face encoding (automatically installed with `face_recognition`).
+---
+
+## How to Run
+1. **Dataset**: Place the `creditcard.csv` file in the project directory.  
+   (Download it from [Kaggle](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)).  
+
+2. **Run the Script**:
+   ```bash
+   python main.py
+   ```
+
+3. **Outputs**:
+   - Visualizations (Class distribution and correlation heatmap).
+   - Confusion matrix and classification reports for all three models.
+   - Comparison table of accuracy for Logistic Regression, Random Forest, and Decision Tree models.
 
 ---
 
-## **Setup Instructions**
+## Results
 
-### 1. **Clone or Download the Repository**
-```bash
-git clone https://github.com/your-username/face-recognition-attendance-system.git
-cd face-recognition-attendance-system
-```
+### Model Performance:
+| Model                 | Accuracy  | Precision | Recall | F1-Score | Comments                |
+|-----------------------|-----------|-----------|--------|----------|-------------------------|
+| Logistic Regression   | ~98.5%   | 0.90      | 0.70   | 0.79     | Good baseline model     |
+| Random Forest         | ~99.6%   | 0.94      | 0.88   | 0.91     | Best performance overall|
+| Decision Tree         | ~99.0%   | 0.91      | 0.85   | 0.88     | Slightly overfits       |
 
-### 2. **Prepare the Face Database**
-- Create a folder named `FACES` in the project directory.
-- Add images of individuals in the `FACES` folder with filenames corresponding to their names (e.g., `John.jpg`, `Jane.jpg`).
-
-### 3. **Run the Script**
-Run the script in your terminal:
-```bash
-python attendance_system.py
-```
-
-### 4. **Mark Attendance**
-- The system will recognize faces in real-time via the webcam.
-- Recognized individuals will be marked "Present" in a CSV file named with the current date (e.g., `22-11-2024.csv`).
+### Key Observations:
+- Logistic Regression serves as a strong baseline model for initial evaluation.
+- Random Forest outperforms others, offering high accuracy and balanced evaluation metrics.
+- Decision Tree provides interpretable results but may overfit, requiring hyperparameter tuning.
 
 ---
 
-## **Project Workflow**
-1. **Face Encoding**:
-   - The system loads images from the `FACES` folder.
-   - Encodes faces into a numerical representation for recognition.
+## Visualizations
 
-2. **Real-time Detection**:
-   - Captures video feed using OpenCV.
-   - Detects and recognizes faces in the video feed.
+### Fraud vs Non-Fraud Transactions
+Illustrates the imbalance in the dataset, with significantly fewer fraud cases compared to non-fraud cases.
 
-3. **Attendance Logging**:
-   - Matches detected faces with known encodings.
-   - Logs recognized individuals with the timestamp in a CSV file.
-
-4. **Live Updates**:
-   - Displays recognized names and attendance status on the video feed.
+### Correlation Heatmap
+Highlights relationships between features, helping identify potential patterns that distinguish fraud from non-fraud.
 
 ---
 
-## **Customization**
-
-### **Add New Students**
-1. Add the student's photo to the `FACES` folder.
-2. Update the `known_face_encodings` and `known_face_names` lists in the code.
-
-### **Change Webcam Source**
-- To use an external camera, change:
-  ```python
-  video_capture = cv2.VideoCapture(0)
-  ```
-  Replace `0` with the appropriate camera index.
+## Future Enhancements
+- Address data imbalance using techniques like **SMOTE** or **Oversampling**.
+- Experiment with advanced models such as **XGBoost** and **LightGBM**.
+- Incorporate additional evaluation metrics like **ROC-AUC** for more nuanced model comparisons.
+- Deploy the model as an API using **Flask** or **FastAPI**.
 
 ---
 
-## **Controls**
-- **Press 'q'**: Stop the program and save attendance.
+## Contributing
+Contributions are welcome! Feel free to fork this repository, make changes, and submit a pull request. Feedback and suggestions for improvement are always appreciated.
 
 ---
 
-## **Future Enhancements**
-- GUI for user-friendly interaction (add/view photos, records, etc.).
-- Liveness detection to prevent spoofing using photos/videos.
-- Integration with a database for scalable record management.
-- Notifications (Email/SMS) for attendance updates.
-- Web or mobile-based deployment.
+## Acknowledgements
+- **Dataset**: Provided by ULB’s Machine Learning Group.
+- **Libraries**: Thanks to the Python community for tools like **Scikit-learn**, **Seaborn**, and **Matplotlib**.
 
 ---
 
-## **Troubleshooting**
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-### **Common Errors**
-1. **`ModuleNotFoundError: No module named 'face_recognition'`**  
-   - Install the library with:
-     ```bash
-     pip install face_recognition
-     ```
-   
-2. **Camera Not Opening**  
-   - Ensure the webcam is properly connected and accessible by the system.
-
-3. **Unrecognized Faces**  
-   - Ensure that:
-     - Images in the `FACES` folder are clear and well-lit.
-     - The system is trained with multiple images of the same person for better accuracy.
-
----
-
-## **License**
-This project is licensed under the **MIT License**. You are free to use, modify, and distribute the project.
-
----
-
-## **Acknowledgments**
-- **[face_recognition Library](https://github.com/ageitgey/face_recognition)**: Provides the core face recognition functionality.
-- **OpenCV**: Enables real-time video processing.
-
----
-
-Feel free to contribute to the project by submitting issues or pull requests!
